@@ -1,15 +1,15 @@
 cmake_minimum_required(VERSION 3.23)
 
-set(project "mymath")
+set(project "article")
 project(${project})
 
 set(CMAKE_CXX_STANDARD 17)
 
 set(${project}_SOURCES
-        mymath.cpp)
+        article.cpp)
 
 set(${project}_HEADERS
-        mymath.h)
+        article.h)
 
 set(${project}_SOURCE_LIST
         ${${project}_SOURCES}
