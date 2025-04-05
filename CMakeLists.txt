@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.23)
 
-set(project "lab2")
+set(project "lab3")
 project(${project})
 
 set(CMAKE_CXX_STANDARD 17)
@@ -12,9 +12,7 @@ set(${project}_SOURCES
 set(${project}_HEADERS
         Application.h)
 
-add_subdirectory(planet)
-
-add_subdirectory(article)
+add_subdirectory(fraction)
 
 set(${project}_SOURCE_LIST
         ${${project}_SOURCES})
@@ -22,6 +20,4 @@ set(${project}_SOURCE_LIST
 add_executable(${project}
         ${${project}_SOURCE_LIST})
 
-target_link_libraries(${project} planet)
-
-target_link_libraries(${project} article)
+target_link_libraries(${project} fraction)
