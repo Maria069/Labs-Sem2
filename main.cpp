@@ -23,6 +23,9 @@ int main() {
     MyStack<int> dividers;
     MyStack<int> dividersReverce;
     Multipliers(n, dividers);
+    MyStack<int> forCopy;
+    forCopy = dividers;
+    std::cout << forCopy.inf() << '\n';
 
     std::cout << "Все простые делители по возрастанию:\n";
     std::cout << n << " = ";
@@ -36,7 +39,6 @@ int main() {
         }
     }
     std::cout << '\n';
-
     std::cout << "Все простые делители по убыванию:\n";
     std::cout << n << " = ";
     while (!dividersReverce.empty()) {

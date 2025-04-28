@@ -8,7 +8,7 @@ set(CMAKE_CXX_STANDARD 17)
 set(${project}_SOURCES
         main.cpp)
 
-add_subdirectory(myStack)
+add_subdirectory(MyStack)
 
 set(${project}_SOURCE_LIST
         ${${project}_SOURCES})

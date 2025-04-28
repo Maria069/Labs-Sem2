@@ -7,7 +7,7 @@ class ListNode {
 public:
     DATA data;
     ListNode<DATA>* next;
-    ListNode() { next = nullptr; } //конструктор
+    ListNode() { next = nullptr; }
 };
 
 // Шаблонный класс MyStack на основе односвязного списка.
@@ -17,8 +17,26 @@ class MyStack {
 public:
     // конструктор
     MyStack() { top = nullptr; }
+    // конструктор копирования
+    MyStack(const MyStack &other) {
+      top = nullptr;
+      MyStack<DATA> tmpStack;
+      ListNode<DATA>* tmp = other.top;
+      while (tmp != nullptr) {
+        tmpStack.push(tmp->data);
+        tmp = tmp->next;
+      }
+
+      tmp = tmpStack.top;
+      while (tmp != nullptr) {
+        push(tmp->data);
+        tmp = tmp->next;
+      }
+    }
     // деструктор
-    ~MyStack(void) { delete[] top; }
+    ~MyStack(void) {
+      while (pop()) {}
+    }
 
     // стек пустой?
     bool empty(void) {
@@ -30,13 +48,16 @@ public:
       tmp->next = top;
       tmp->data = obj;
       top = tmp;
+      return 1;
     }
     // удалить узел из вершины стека
     bool pop() {
       if (empty()) {
         return false;
       }
-      top = top->next;
+      ListNode<DATA>* tmp = top->next;
+      delete top;
+      top = tmp;
       return true;
     }
     // считать информацию из вершины стека
@@ -46,5 +67,27 @@ public:
         exit(0);
       }
       return top->data;
+    }
+
+    // присваивания
+    MyStack& operator=(const MyStack &obj) {
+      if (this == &obj) {
+        return *this;
+      }
+      while (pop()) {}
+
+      MyStack<DATA> tmpStack;
+      ListNode<DATA>* tmp = obj.top;
+      while (tmp != nullptr) {
+        tmpStack.push(tmp->data);
+        tmp = tmp->next;
+      }
+
+      tmp = tmpStack.top;
+      while (tmp != nullptr) {
+        push(tmp->data);
+        tmp = tmp->next;
+      }
+      return *this;
     }
 };
