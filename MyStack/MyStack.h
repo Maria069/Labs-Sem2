@@ -90,4 +90,28 @@ public:
       }
       return *this;
     }
+
+    DATA operator[](int ind) {
+      MyStack<DATA> tmpStack;
+      ListNode<DATA>* tmp = top;
+      while (tmp != nullptr) {
+        tmpStack.push(tmp->data);
+        tmp = tmp->next;
+      }
+
+      tmp = tmpStack.top;
+      int i = 0;
+      while (tmp != nullptr && i < ind) {
+        i++;
+      //  std::cout << tmp->data << '\n';
+        tmp = tmp->next;
+      }
+
+      if (i == ind) {
+        return tmp->data;
+      }
+      
+      std::cout << "Попытка обратиться к несуществующему элементу!\n";
+      exit(0);
+    }
 };

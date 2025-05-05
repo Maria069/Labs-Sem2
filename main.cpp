@@ -23,6 +23,9 @@ int main() {
     MyStack<int> dividers;
     MyStack<int> dividersReverce;
     Multipliers(n, dividers);
+
+    std::cout << dividers[0] << ' ' << dividers[2] << ' ' <<  dividers[5] << '\n';
+
     MyStack<int> forCopy;
     forCopy = dividers;
     std::cout << forCopy.inf() << '\n';
