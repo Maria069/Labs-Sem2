@@ -1,17 +1,17 @@
 cmake_minimum_required(VERSION 3.23)
 
-set(project "MyContainers")
+set(project "MyClasses")
 project(${project})
 
 set(CMAKE_CXX_STANDARD 17)
 
 set(${project}_SOURCES
-        MySet.cpp
-        MyVector.cpp)
+        complex.cpp
+        rectangle.cpp)
 
 set(${project}_HEADERS
-        MySet.h
-        MyVector.h)
+        complex.h
+        rectangle.h)
 
 set(${project}_SOURCE_LIST
         ${${project}_SOURCES}

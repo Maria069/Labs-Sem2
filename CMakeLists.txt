@@ -1,14 +1,18 @@
 cmake_minimum_required(VERSION 3.23)
 
-set(project "lab5")
+set(project "lab8")
 project(${project})
 
 set(CMAKE_CXX_STANDARD 17)
 
 set(${project}_SOURCES
-        main.cpp)
+        main.cpp
+        Application.cpp)
 
-add_subdirectory(MyContainers)
+set(${project}_HEADERS
+        Application.h)
+
+add_subdirectory(MyClasses)
 
 set(${project}_SOURCE_LIST
         ${${project}_SOURCES})
@@ -16,4 +20,4 @@ set(${project}_SOURCE_LIST
 add_executable(${project}
         ${${project}_SOURCE_LIST})
 
-target_link_libraries(${project} MyContainers)
+target_link_libraries(${project} MyClasses)

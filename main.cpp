@@ -1,7 +1,7 @@
-#include "MyContainers/MySet.h"
-#include <iostream>
+#include "Application.h"
 
-int main() {
 
+int main(int, char**) {
+    Application::StartApp();
     return 0;
 }
