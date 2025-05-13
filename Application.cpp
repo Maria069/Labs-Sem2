@@ -20,15 +20,19 @@ void printVector(std::vector<int> &v) {
 }
 
 void getDoubleVector(std::vector<int> &v) {
-    for (size_t i = 0; i < v.size(); ++i) {
-        v[i] = v[i] * 2;
-    }
+    std::transform(v.begin(), v.end(), v.begin(), [](auto i) { return i * 2; });
+    // for (size_t i = 0; i < v.size(); ++i) {
+    //     v[i] = v[i] * 2;
+    // }
 }
 
 void fillRandomVector(std::vector<int> &v) {
     std::random_device generator{};
     std::default_random_engine randomEngine(generator());
     std::uniform_int_distribution distribution(0, 100);
+
+    //std::fill(v.begin(), v.end(), distribution(randomEngine));
+    // при использовании fill элементы массива одинаковые
 
     for (size_t i = 0; i < v.size(); ++i) {
         v[i] = distribution(randomEngine);
@@ -53,12 +57,7 @@ void printList(std::list<Rectangle> &l) {
 }
 
 void getDoubleList(std::list<int> &l) {
-    std::list<int>::iterator iter;
-    std::list<int> l1;
-    for (iter = l.begin(); iter != l.end(); ++iter) {
-        l1.push_back(*iter * 2);
-    }
-    l = l1;
+    std::transform(l.begin(), l.end(), l.begin(), [](auto i) { return i * 2; });
 }
 
 void fillRandomList(std::list<int> &l) {
@@ -97,10 +96,14 @@ void ExecuteTackOne() {
     getline(std::cin, s);
 
     int cnt = 0;
-    for (size_t i = 0; i < s.size(); ++i) {
-        if (s[i] == '@') {
-            cnt++;
+    int i = 0;
+    while (i < s.size()) {
+        int pos = s.find("@", i);
+        if (pos == std::string::npos) {
+            break;
         }
+        i = pos + 1;
+        cnt++;
     }
 
     std::cout << "Кол-во символов @ в данном тексте: " << cnt << '\n';
