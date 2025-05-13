@@ -1,3 +1,3 @@
 #include "MyVector.h"
+#include <iostream>
 
-// TODO: реализация класса MyVector

@@ -1,3 +1,2 @@
 #include "MySet.h"
-
-// TODO: реализация класса MySet
+#include <iostream>
