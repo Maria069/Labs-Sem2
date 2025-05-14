@@ -12,6 +12,8 @@
 #include <algorithm>
 
 namespace {
+int randNumber () { return (std::rand() % 100); }
+
 void printVector(std::vector<int> &v) {
     for (size_t i = 0; i < v.size(); ++i) {
         std::cout << v[i] << ' ';
@@ -27,16 +29,10 @@ void getDoubleVector(std::vector<int> &v) {
 }
 
 void fillRandomVector(std::vector<int> &v) {
-    std::random_device generator{};
-    std::default_random_engine randomEngine(generator());
-    std::uniform_int_distribution distribution(0, 100);
-
-    //std::fill(v.begin(), v.end(), distribution(randomEngine));
+    //std::fill(v.begin(), v.end(), distribution(randNumber));
     // при использовании fill элементы массива одинаковые
 
-    for (size_t i = 0; i < v.size(); ++i) {
-        v[i] = distribution(randomEngine);
-    }
+    std::generate(v.begin(), v.end(), randNumber);
 }
 
 //template<typename DATA>
@@ -61,16 +57,7 @@ void getDoubleList(std::list<int> &l) {
 }
 
 void fillRandomList(std::list<int> &l) {
-    std::random_device generator{};
-    std::default_random_engine randomEngine(generator());
-    std::uniform_int_distribution distribution(0, 100);
-
-    std::list<int>::iterator iter;
-    std::list<int> l1;
-    for (iter = l.begin(); iter != l.end(); ++iter) {
-        l1.push_back(distribution(randomEngine));
-    }
-    l = l1;
+    std::generate(l.begin(), l.end(), randNumber);
 }
 
 void printMap(std::map<std::string, int> &m) {
