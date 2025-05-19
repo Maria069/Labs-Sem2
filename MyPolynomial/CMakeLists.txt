@@ -1,17 +1,15 @@
 cmake_minimum_required(VERSION 3.23)
 
-set(project "MyClasses")
+set(project "MyPolynomial")
 project(${project})
 
 set(CMAKE_CXX_STANDARD 17)
 
 set(${project}_SOURCES
-        complex.cpp
-        rectangle.cpp)
+        MyPolynomial.cpp)
 
 set(${project}_HEADERS
-        complex.h
-        rectangle.h)
+        MyPolynomial.h)
 
 set(${project}_SOURCE_LIST
         ${${project}_SOURCES}

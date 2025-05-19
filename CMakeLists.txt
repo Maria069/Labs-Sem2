@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.23)
 
-set(project "lab8")
+set(project "lab6")
 project(${project})
 
 set(CMAKE_CXX_STANDARD 17)
@@ -12,7 +12,8 @@ set(${project}_SOURCES
 set(${project}_HEADERS
         Application.h)
 
-add_subdirectory(MyClasses)
+add_subdirectory(MyVector)
+add_subdirectory(MyPolynomial)
 
 set(${project}_SOURCE_LIST
         ${${project}_SOURCES})
@@ -20,4 +21,5 @@ set(${project}_SOURCE_LIST
 add_executable(${project}
         ${${project}_SOURCE_LIST})
 
-target_link_libraries(${project} MyClasses)
+target_link_libraries(${project} MyVector)
+target_link_libraries(${project} MyPolynomial)

@@ -1,6 +1,6 @@
 #include "Application.h"
-#include "MyClasses/complex.h"
-#include "MyClasses/rectangle.h"
+#include "MyVector/MyVector.h"
+#include "MyPolynomial/MyPolynomial.h"
 
 #include <iostream>
 #include <fstream>
