@@ -61,15 +61,18 @@ class MyVector {
     --size;
     return true;
   }
-  DATA operator[](int index) {
+  DATA& operator[](int index) {
     return vector[index];
   }
-  void sort() {
+  DATA operator[]  (int index) const {
+    return vector[index];
+  }
+  void sort(bool flag) {
     bool sorted = false;
     for (int i = 0; i < size - 1 && !sorted; ++i) {
       sorted = true;
       for (int j = 0; j < size - i - 1; ++j) {
-        if (vector[j] > vector[j + 1]) {
+        if ((vector[j] > vector[j + 1])^flag) {
           DATA tmp = vector[j];
           vector[j] = vector[j + 1];
           vector[j + 1] = tmp;
@@ -78,7 +81,7 @@ class MyVector {
       }
     }
   }
-  int getSize() { return size; }
+  int getSize() const { return size; }
   int getCapacity() { return capacity; }
   int find(DATA elem) {
     int l = 0;
@@ -98,7 +101,7 @@ class MyVector {
     }
     return l;
   }
-  MyVector &operator=(MyVector &obj) {
+  MyVector &operator=(const MyVector &obj) {
     if (this == &obj) {
       return *this;
     }
