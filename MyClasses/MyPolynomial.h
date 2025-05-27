@@ -161,7 +161,7 @@ public:
         return *this;
     }
     //+ * += *= term
-    MyPolynomial operator+(MyTerm& obj) {
+    MyPolynomial operator+(const MyTerm& obj) {
         MyPolynomial tmp;
         tmp.degree = degree;
 
@@ -208,7 +208,7 @@ public:
         return *this;
     }
 
-    MyPolynomial operator*(MyTerm& obj) {
+    MyPolynomial operator*(const MyTerm& obj) {
         MyPolynomial tmp;
         
         for (int i = 0; i < poly.getSize(); ++i) {
@@ -230,7 +230,7 @@ public:
     }
 
     //+ *
-    MyPolynomial operator+(MyPolynomial& obj) {
+    MyPolynomial operator+(const MyPolynomial& obj) {
         MyPolynomial tmp(*this);
 
         for (int j = 0; j < obj.poly.getSize(); ++j) {
@@ -240,7 +240,7 @@ public:
         tmp.poly.sort(order);
         return tmp;
     }
-    MyPolynomial operator*(MyPolynomial& obj) {
+    MyPolynomial operator*(const MyPolynomial& obj) {
         MyPolynomial tmp1;
 
         for (int j = 0; j < obj.poly.getSize(); ++j) {
