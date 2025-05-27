@@ -1,7 +1,7 @@
 #pragma once
 #include <iostream>
 
-const int DefaultSize = 1;
+const int DefaultSize = 2;
 
 template<class DATA>
 class MyVector {
@@ -20,7 +20,7 @@ class MyVector {
     DATA* tmp = new DATA[capacity];
     vector = tmp;
   }
-  MyVector(MyVector &obj) {
+  MyVector(const MyVector &obj) {
     capacity = obj.capacity;
     size = obj.size;
 
@@ -64,6 +64,10 @@ class MyVector {
   DATA operator[](int index) {
     return vector[index];
   }
+  DATA operator[](int index) const {
+    return vector[index];
+  }
+
   void sort() {
     bool sorted = false;
     for (int i = 0; i < size - 1 && !sorted; ++i) {
@@ -78,12 +82,12 @@ class MyVector {
       }
     }
   }
-  int getSize() { return size; }
-  int getCapacity() { return capacity; }
+
+  int getSize() const { return size; }
+  int getCapacity() const { return capacity; }
   int find(DATA elem) {
     int l = 0;
-    int r = size + 1;
-
+    int r = size;
     while (r - l > 1) {
       int m = (l + r) / 2;
       if (vector[m] <= elem) {
@@ -92,12 +96,12 @@ class MyVector {
         r = m;
       }
     }
-
     if (vector[l] != elem) {
-      std::cout << "Нет такого элемента\n";
+      return -1;
     }
     return l;
   }
+
   MyVector &operator=(MyVector &obj) {
     if (this == &obj) {
       return *this;
@@ -113,10 +117,49 @@ class MyVector {
     return *this;
   }
   friend std::ostream &operator<<(std::ostream &out, MyVector &v) {
+    out << '[';
     for (int i = 0; i < v.size; ++i) {
-      out << v[i] << ' ';
+      out << v.vector[i];
+      if (i != v.size - 1) {
+        out << ", ";
+      }
     }
-    out << '\n';
+    out << ']' << '\n';
     return out;
   }
 };
+
+template<>
+  void MyVector<char*>::sort() {
+    bool sorted = false;
+    for (int i = 0; i < size - 1 && !sorted; ++i) {
+      sorted = true;
+      for (int j = 0; j < size - i - 1; ++j) {
+        if (strcmp(vector[j], vector[j + 1]) > 0) {
+          char* tmp = vector[j];
+          vector[j] = vector[j + 1];
+          vector[j + 1] = tmp;
+          sorted = false;
+        }
+      }
+    }
+  }
+
+  template<>
+  int MyVector<char*>::find(char* elem) {
+    int l = 0;
+    int r = size;
+    while (r - l > 1) {
+      int m = (l + r) / 2;
+      if (strcmp(vector[m], elem) <= 0) {
+        l = m;
+      } else {
+        r = m;
+      }
+    }
+
+    if (vector[l] != elem) {
+      return -1;
+    }
+    return l;
+  }
