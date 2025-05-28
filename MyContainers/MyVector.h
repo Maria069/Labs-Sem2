@@ -6,8 +6,8 @@ const int DefaultSize = 2;
 template<class DATA>
 class MyVector {
  protected:
-  int capacity;
-  int size;
+  int capacity = DefaultSize;
+  int size = 0;
   DATA* vector;
 
  public:
@@ -129,37 +129,108 @@ class MyVector {
   }
 };
 
+
 template<>
-  void MyVector<char*>::sort() {
-    bool sorted = false;
-    for (int i = 0; i < size - 1 && !sorted; ++i) {
-      sorted = true;
-      for (int j = 0; j < size - i - 1; ++j) {
-        if (strcmp(vector[j], vector[j + 1]) > 0) {
-          char* tmp = vector[j];
-          vector[j] = vector[j + 1];
-          vector[j + 1] = tmp;
-          sorted = false;
-        }
+MyVector<char*>::MyVector(int size1) {
+  capacity = DefaultSize;
+  if (size1 > capacity) {
+    capacity = size1;
+  }
+  size = size1;
+  vector = new char*[capacity];
+}
+
+template<>
+MyVector<char*>::~MyVector() {
+  for (int i = 0; i < size; ++i) {
+    free(vector[i]);
+  }
+  delete[] vector;
+}
+
+template<>
+MyVector<char*>::MyVector(const MyVector<char*> &obj) {
+  capacity = obj.capacity;
+  size = obj.size;
+
+  vector = new char*[size];
+  for (int i = 0; i < size; ++i) {
+    //strcpy(vector[i], obj.vector[i]);
+    vector[i] = strdup(obj.vector[i]);
+  }
+}
+
+template<>
+MyVector<char*> &MyVector<char*>::operator=(MyVector<char*> &obj) {
+  if (this == &obj) {
+    return *this;
+  }
+  for (int i = 0; i < size; ++i) {
+    free(vector[i]);
+  }
+  delete[] vector;
+  capacity = obj.capacity;
+  size = obj.size;
+  vector = new char*[size];
+  for (int i = 0; i < size; ++i) {
+    //strcpy(vector[i], obj.vector[i]);
+    vector[i] = strdup(obj.vector[i]);
+  }
+  return *this;
+}
+
+template<>
+void MyVector<char*>::sort() {
+  bool sorted = false;
+  for (int i = 0; i < size - 1 && !sorted; ++i) {
+    sorted = true;
+    for (int j = 0; j < size - i - 1; ++j) {
+      if (strcmp(vector[j], vector[j + 1]) > 0) {
+        char* tmp = vector[j];
+        vector[j] = vector[j + 1];
+        vector[j + 1] = tmp;
+        sorted = false;
       }
     }
   }
+}
 
-  template<>
-  int MyVector<char*>::find(char* elem) {
-    int l = 0;
-    int r = size;
-    while (r - l > 1) {
-      int m = (l + r) / 2;
-      if (strcmp(vector[m], elem) <= 0) {
-        l = m;
-      } else {
-        r = m;
-      }
+template<>
+int MyVector<char*>::find(char* elem) {
+  int l = 0;
+  int r = size;
+  while (r - l > 1) {
+    int m = (l + r) / 2;
+    if (strcmp(vector[m], elem) <= 0) {
+      l = m;
+    } else {
+      r = m;
     }
-
-    if (vector[l] != elem) {
-      return -1;
-    }
+  }
+  std::cout << vector[l] << ' ' << elem << '\n';
+  if (strcmp(vector[l], elem) == 0) {
     return l;
   }
+  return -1;
+}
+
+template<>
+void MyVector<char*>::add_element(char* elem) {
+    if (size >= capacity) {
+        resize();
+    }
+    //strcpy(vector[size++], elem + '\0');
+    vector[size++] = strdup(elem);
+}
+
+template<>
+bool MyVector<char*>::delete_element(int index) {
+  if (size <= index) {
+    return false;
+  }
+  for (int i = index; i < size - 1; ++i) {
+    vector[i] = strdup(vector[i + 1]);
+  }
+  --size;
+  return true;
+}

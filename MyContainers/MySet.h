@@ -21,6 +21,27 @@ class MySet : protected MyVector<DATA> {
     return *this;
   }
 
+  void add_element(DATA elem) {
+    if (!is_element(elem)) {
+        MyVector<DATA>::add_element(elem);
+        sort();
+    }
+  }
+
+  bool is_element(DATA el) {
+    sort();
+    int i = find(el);
+    return (0 <= i && i < size);
+  }
+
+  void delete_element(DATA el) {
+    sort();
+    int i = find(el);
+    if (0 <= i && i < size) {
+      MyVector<DATA>::delete_element(i);
+    }
+  }
+
   bool operator==(MySet &s) {
     if (size != s.size) { return false; }
     for (int i = 0; i < size; ++i) {
@@ -52,24 +73,7 @@ class MySet : protected MyVector<DATA> {
     *this = temp;
     return *this;
   }
-  void add_element(DATA elem) {
-    if (!is_element(elem)) {
-        MyVector<DATA>::add_element(elem);
-        sort();
-    }
-  }
-  void delete_element(DATA el) {
-    sort();
-    int i = find(el);
-    if (0 <= i && i < size && vector[i] == el) {
-      MyVector<DATA>::delete_element(i);
-    }
-  }
-  bool is_element(DATA el) {
-    sort();
-    int i = find(el);
-    return (0 <= i && i < size && vector[i] == el);
-  }
+  
   friend std::ostream &operator<<(std::ostream &out, const MySet &s) {
     out << '{';
     for (int i = 0; i < s.size; ++i) {
@@ -98,17 +102,3 @@ class MySet : protected MyVector<DATA> {
   }
 };
 
-template<>
-bool MySet<char*>::is_element(char* el) {
-    sort();
-    int i = find(el);
-    return (0 <= i && i < size && strcmp(vector[i], el) == 0);
-}
-template<>
-void MySet<char*>::delete_element(char* el) {
-    sort();
-    int i = find(el);
-    if (0 <= i && i < size && strcmp(vector[i], el) == 0) {
-        MyVector<char*>::delete_element(i);
-    }
-}
