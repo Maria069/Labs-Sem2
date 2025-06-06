@@ -207,8 +207,7 @@ int MyVector<char*>::find(char* elem) {
       r = m;
     }
   }
-  std::cout << vector[l] << ' ' << elem << '\n';
-  if (strcmp(vector[l], elem) == 0) {
+  if (l < size && strcmp(vector[l], elem) == 0) {
     return l;
   }
   return -1;

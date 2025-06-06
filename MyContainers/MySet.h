@@ -30,7 +30,7 @@ class MySet : protected MyVector<DATA> {
 
   bool is_element(DATA el) {
     sort();
-    int i = find(el);
+    int i = MyVector<DATA>::find(el);
     return (0 <= i && i < size);
   }
 
